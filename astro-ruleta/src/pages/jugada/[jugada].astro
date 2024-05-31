@@ -1,0 +1,79 @@
+---
+
+import Layout from "../../layouts/Layout.astro";
+
+
+
+// funció que retorna la data actual en format any, mes, dia, mm, ss
+
+function getCurrentDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const mins = String(date.getMinutes()).padStart(2, '0');
+    const secs = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${mins}:${secs}`;
+}
+
+
+// funció que retorna una jugada random 
+function jugadaRandom() {
+    let randomNum = Math.floor(Math.random() * 11);
+    return randomNum
+}
+
+// funció que calcula quina de les dos jugades rebudes és la guanyadora, retorna "Guanyador" si és la primera, i "Perdedor" si és la segona
+function guanyador(aposta, random) {
+    if (aposta == random) {
+        return 10*10;
+    } else if (aposta %2 === 0) {
+        return 10*2;
+    }
+    else if (aposta %2 !== 0) {
+        return 10*2;
+    }
+}
+
+// funció que actualitza la cookie, afegint la informació de la jugada, ordinador i resultat
+// afegim el timestamp actual
+// la cookie sempre es guarda en JSON
+function updateCookie(jugada, ordinador, resultat) {
+    let cookie = Astro.cookies.get("partida");
+    let cookieData = JSON.parse(cookie.value);
+    cookieData.push({data: getCurrentDate(), jugada, ordinador, resultat});
+    Astro.cookies.set("partida", JSON.stringify(cookieData), { path: '/' });
+}
+
+
+// llegim de la URL la jugada que ha fet l'usuari: valors possibles PEDRA, PAPER, TISORA
+const {jugada} = Astro.params;
+
+// calculem jugada random
+const jugadaOrdinador = jugadaRandom();
+
+// mirem si és guanyador o perdedor
+const resultat = guanyador(jugada, jugadaOrdinador);
+
+// actualitzem la cookie amb la nova jugada
+updateCookie(jugada,jugadaOrdinador, resultat);
+
+
+// html mostra el resultat de la jugada i permet tornars a la pàgina principal
+---
+
+<Layout>
+
+    <h1>Resultat de la jugada</h1>
+    
+    <h2>Jugada: {jugada}</h2>
+    <h2>Jugada ordinador: {jugadaOrdinador}</h2>
+    <h2>Resultat: {resultat}</h2>
+
+    <br>
+    <a href="/">Tornar</a>
+
+
+</Layout>

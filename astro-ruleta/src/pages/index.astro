@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+let gameData; // inicialitzem la variable gameData
+let jugadaEx= 
+    {
+        "saldo": 150,
+        "numJugado":3,
+        "numAleatorio":4,
+        "resultado":"Perdedor"
+
+    }
+
+
+
+// si NO existeix la cookie "partida", la creem i recarreguem la pàgina
+if (!Astro.cookies.has("partida")) {
+  Astro.cookies.set("partida", JSON.stringify([jugadaEx]), { path: '/' });
+  return Astro.redirect('/')
+} else {
+	//si existeix la cookie "partida", la parsem a JSON i la guardam en la variable gameData
+	let cookie = Astro.cookies.get("partida");
+	gameData = JSON.parse(cookie.value); // ull! el valor està a .value
+}
+
+// calculem el percentatge de jugades guanyadores
+
+
+// la pàgina mostra links a les jugades, un botó per netejar l'historial de jugades, i la llista de jugades fetes
+
+---
+
+<Layout>
+	<table>
+		<thead>
+				<h1>Saldo actual = {gameData[gameData.length-1].saldo}</h1>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+
+</Layout>

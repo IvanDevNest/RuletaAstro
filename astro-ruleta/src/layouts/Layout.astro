@@ -1,0 +1,92 @@
+---
+
+---
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />	
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+			<table>
+				<tr>
+					<td class="green"rowspan="3"><a href="/jugada/0">0</a></td>
+					<td class="red"><a href="/jugada/3">3</a></button></td>
+					<td class="black"><a href="/jugada/6">6</a></td>
+					<td class="red"><a href="/jugada/9">9</a></button></td>
+					<td class="red" rowspan="3"><a href="/jugada/10">10<a/></button></td>
+
+		
+				</tr>
+				<tr>
+					<td class="black"><a href="/jugada/2">2</a></td>
+					<td class="red"><a href="/jugada/5">5</a></button></td>
+					<td class="black"><a href="/jugada/8">8</a></td>
+
+				</tr>
+				<tr>
+					<td class="black" ><a href="/jugada/1">1</a></td>
+					<td class="red"><a href="/jugada/4">4</a></button></td>
+					<td class="black"><a href="/jugada/7">7</a></td>
+
+				</tr>
+
+			</table>
+			<table>
+				<tr>
+					<td class="blau"><a href="/jugada/101">Imparell</button></td>
+
+					<td  class="black"><a href="/jugada/negre">Negre</a></td>
+					<td class="red"><a href="/jugada/verell">Vermell</a></td>
+					<td  class="blau"><a href="/jugada/100">Parell</a></td>
+
+
+				</tr>
+			</table>
+			
+        <main>
+            <slot />
+        </main>
+	</body>
+</html>	
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 50%;
+			margin: 0 auto;
+		}
+		
+		td {
+			border: 2px solid rgb(91, 91, 91);
+			text-align: center;
+			
+		}
+		.red {
+			background-color: red;
+			color: white;
+		}
+		.black {
+			background-color: black;
+			color: white;
+		}
+		.blau {
+			background-color: rgb(65, 63, 192);
+			color: white;
+		}
+		.negre{padding-right: 15px;
+		padding-left: 15px;}
+		.green {
+			background-color: green;
+			color: white;
+		}
+		td a{
+			color: white;
+			text-decoration: none;
+
+		}
+
+	</style>
