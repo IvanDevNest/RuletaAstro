@@ -27,15 +27,52 @@ function jugadaRandom() {
 
 // funció que calcula quina de les dos jugades rebudes és la guanyadora, retorna "Guanyador" si és la primera, i "Perdedor" si és la segona
 function guanyador(aposta, random) {
-    if (aposta == random) {
-        return 10*10;
-    } else if (aposta %2 === 0) {
-        return 10*2;
+    const numerosNegros = [1, 2, 6, 8, 7];
+    const numerosRojos = [3, 5, 4, 9, 10]; 
+    let tipoApuesta;
+
+    if (aposta === "negro") {
+        tipoApuesta = "negro";
+    } else if (aposta === "rojo") {
+        tipoApuesta = "rojo";
+    } else if (aposta === "par") {
+        tipoApuesta = "par";
+    } else if (aposta === "impar") {
+        tipoApuesta = "impar";
+    } else {
+        tipoApuesta = "numero";
+        aposta = parseInt(aposta, 10);  // Convertir apuesta a número si es una apuesta numérica
     }
-    else if (aposta %2 !== 0) {
-        return 10*2;
+
+    // Caso de acierto exacto
+    if (tipoApuesta === "numero" && aposta === random) {
+        return 100;
+    }
+    // Apuestas por número par
+    else if (tipoApuesta === "par" && random % 2 === 0) {
+        return 20;
+    }
+    // Apuestas por número impar
+    else if (tipoApuesta === "impar" && random % 2 !== 0) {
+        return 20;
+    }
+    // Apuestas por número negro
+    else if (tipoApuesta === "negro" && numerosNegros.includes(random)) {
+        return 20;
+    }
+    // Apuestas por número rojo
+    else if (tipoApuesta === "rojo" && numerosRojos.includes(random)) {
+        return 20;
+    }
+    // Fallo general
+    else {
+        return -10;
     }
 }
+
+
+
+
 
 // funció que actualitza la cookie, afegint la informació de la jugada, ordinador i resultat
 // afegim el timestamp actual
