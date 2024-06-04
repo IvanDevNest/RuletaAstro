@@ -4,10 +4,7 @@ import Layout from "../layouts/Layout.astro";
 let gameData; // inicialitzem la variable gameData
 let jugadaEx= 
     {
-        "saldo": 150,
-        "numJugado":3,
-        "numAleatorio":4,
-        "resultado":"Perdedor"
+		"saldo": 150
 
     }
 
@@ -31,12 +28,26 @@ if (!Astro.cookies.has("partida")) {
 ---
 
 <Layout>
+<style> .saldo {
+	color: green;
+	font-size: 60px;
+	text-align: center
+}
+h1{
+	text-align: center;
+}
+</style>
+<body>
 	<table>
 		<thead>
-				<h1>saldo actual = {gameData[gameData.length-1].saldo}</h1>
+			<h1 class="saldo">{gameData[gameData.length-1].saldo} €</h1>
+			<h1>  PARA EMPEZAR A JUGAR ELIGE DONDE APOSTAR</h1>
+		
 		</thead>
 		<tbody>
 		</tbody>
 	</table>
+</body>
+
 
 </Layout>

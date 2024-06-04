@@ -1,6 +1,57 @@
 ---
-// netegem la cookie i recarreguem la pàgina index
-Astro.cookies.set("partida", '[]', { path: '/' });
-return Astro.redirect('/');
 
 ---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: red;
+        }
+
+        p {
+            font-size: 24px;
+            color: #ccc;
+        }
+
+        a {
+            color: yellow;
+            font-size: 20px;
+            text-decoration: none;
+            border: 2px solid yellow;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a:hover {
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Game Over</h1>
+        <p>¡Te Has Arruinado!</p>
+        <a href="../pages/jugada/index.astro">Volver a intentarlo</a>
+    </div>
+</body>
+</html>
+

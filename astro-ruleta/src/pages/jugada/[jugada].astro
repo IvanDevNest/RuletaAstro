@@ -1,7 +1,9 @@
 ---
 
 import Layout from "../../layouts/Layout.astro";
-
+let saldoAct;
+let gameData
+let llistaNums = []
 
 
 // funció que retorna la data actual en format any, mes, dia, mm, ss
@@ -22,6 +24,8 @@ function getCurrentDate() {
 // funció que retorna una jugada random 
 function jugadaRandom() {
     let randomNum = Math.floor(Math.random() * 11);
+    
+
     return randomNum
 }
 
@@ -46,27 +50,27 @@ function guanyador(aposta, random) {
 
     // Caso de acierto exacto
     if (tipoApuesta === "numero" && aposta === random) {
-        return 100;
+        return +100;
     }
     // Apuestas por número par
     else if (tipoApuesta === "par" && random % 2 === 0) {
-        return 20;
+        return +20;
     }
     // Apuestas por número impar
     else if (tipoApuesta === "impar" && random % 2 !== 0) {
-        return 20;
+        return +20;
     }
     // Apuestas por número negro
     else if (tipoApuesta === "negro" && numerosNegros.includes(random)) {
-        return 20;
+        return +20;
     }
     // Apuestas por número rojo
     else if (tipoApuesta === "rojo" && numerosRojos.includes(random)) {
-        return 20;
+        return +20;
     }
     // Fallo general
     else {
-        return -10;
+        return -150;
     }
 }
 
@@ -79,11 +83,26 @@ function guanyador(aposta, random) {
 // la cookie sempre es guarda en JSON
 function updateCookie(jugada, ordinador, resultat) {
     let cookie = Astro.cookies.get("partida");
-    let cookieData = JSON.parse(cookie.value);
-    cookieData.push({data: getCurrentDate(), jugada, ordinador, resultat});
-    Astro.cookies.set("partida", JSON.stringify(cookieData), { path: '/' });
-}
+	gameData = JSON.parse(cookie.value);
+	saldoAct=gameData[gameData.length-1].saldo
 
+    llistaNums=gameData.slice(1).map(n => n.ordinador);
+
+    saldoAct=saldoAct+resultat;
+    
+
+    gameData.push({data: getCurrentDate(), jugada, ordinador, resultat, saldo:saldoAct});
+    Astro.cookies.set("partida", JSON.stringify(gameData), { path: '/' });
+    console.log(llistaNums);
+
+}
+function derrota(){
+    if(saldoAct=gameData[gameData.length-1].saldo<=0){
+        
+        return Astro.redirect('../neteja.astro')
+
+    }
+    }
 
 // llegim de la URL la jugada que ha fet l'usuari: valors possibles PEDRA, PAPER, TISORA
 const {jugada} = Astro.params;
@@ -97,17 +116,75 @@ const resultat = guanyador(jugada, jugadaOrdinador);
 // actualitzem la cookie amb la nova jugada
 updateCookie(jugada,jugadaOrdinador, resultat);
 
+derrota();
+
 
 // html mostra el resultat de la jugada i permet tornars a la pàgina principal
 ---
 
 <Layout>
+    <style>
+        .saldo {
+            color: green;
+            font-size: 60px;
+            text-align: center
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-    <h1>Resultat de la jugada</h1>
+        .num {
+            font-size: 90px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            text-align: center;
+            color: white;
+            padding: 10px;
+        }
+        .red{
+            background-color: red;
+            border: white solid 3px;
+
+        }
+        .black{
+            background-color: black;
+            border: white solid 3px;
+
+        }
+        .green{
+            background-color: green;
+            border: white solid 3px;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+    <h1 class="saldo">{gameData[gameData.length-1].saldo} € ({resultat>0?"+"+resultat:""+resultat})</h1>
+    <h1>La ruleta ha sacado un</h1>
+    <h1>{jugadaOrdinador}</h1>
     
-    <h2>Jugada: {jugada}</h2>
-    <h2>Jugada ordinador: {jugadaOrdinador}</h2>
-    <h2>Resultat: {resultat}</h2>
+    <hr>
+    <div class="container">{llistaNums.reverse().map(num =>{
+        if(num !=3 && num !=5 &&num !=4 && num !=9 && num != 10){
+            return <div class="num red">{num}</div>
+        }else if (num == 0){
+            return <div class="num green">{num}</div>
+        }
+        else{
+            return <div class="num black">{num}</div>
+        }
+}
+
+   ) }
+
+        
+            
+    </div>
+  
+   
+
 
     <br>
     <a href="/">Tornar</a>

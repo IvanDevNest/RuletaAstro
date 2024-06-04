@@ -1,8 +1,4 @@
----
-
----
-
-
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -10,83 +6,95 @@
 		<meta name="viewport" content="width=device-width" />	
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+		<style>
+			body, html {
+				height: 100%;
+				margin: 0;
+				font-family: Arial, sans-serif;
+				background-image: url('https://us.123rf.com/450wm/welcomia/welcomia1701/welcomia170100238/70948636-ruleta-de-casino-fondo-oscuro-con-espacio-de-copia-casino-gambling-tel%C3%B3n-de-fondo-negro.jpg');
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				color: white;
+			}
+
+			h1 {
+				text-align: center;
+				color: white;
+				background-color: rgba(0, 0, 0, 0.5);
+				padding: 10px;
+			}
+
+			table {
+				border-collapse: collapse;
+				width: 50%;
+				margin: 20px auto;
+				background-color: rgba(255, 255, 255, 0.8);
+			}
+
+			td {
+				border: 2px solid rgb(255, 255, 255);
+				text-align: center;
+				padding: 10px;
+			}
+
+			.red {
+				background-color: red;
+				color: white;
+			}
+
+			.black {
+				background-color: black;
+				color: white;
+			}
+
+			.blau {
+				background-color: rgb(65, 63, 192);
+				color: white;
+			}
+
+			.green {
+				background-color: green;
+				color: white;
+			}
+
+			td a {
+				color: white;
+				text-decoration: none;
+			}
+		</style>
 	</head>
 	<body>
-			<table>
-				<tr>
-					<td class="green"rowspan="3"><a href="/jugada/0">0</a></td>
-					<td class="red"><a href="/jugada/3">3</a></button></td>
-					<td class="black"><a href="/jugada/6">6</a></td>
-					<td class="red"><a href="/jugada/9">9</a></button></td>
-					<td class="red" rowspan="3"><a href="/jugada/10">10<a/></button></td>
-
-		
-				</tr>
-				<tr>
-					<td class="black"><a href="/jugada/2">2</a></td>
-					<td class="red"><a href="/jugada/5">5</a></button></td>
-					<td class="black"><a href="/jugada/8">8</a></td>
-
-				</tr>
-				<tr>
-					<td class="black" ><a href="/jugada/1">1</a></td>
-					<td class="red"><a href="/jugada/4">4</a></button></td>
-					<td class="black"><a href="/jugada/7">7</a></td>
-
-				</tr>
-
-			</table>
-			<table>
-				<tr>
-					<td class="blau"><a href="/jugada/impar">Imparell</button></td>
-
-					<td  class="black"><a href="/jugada/negro">Negre</a></td>
-					<td class="red"><a href="/jugada/rojo">Vermell</a></td>
-					<td  class="blau"><a href="/jugada/par">Parell</a></td>
-
-
-				</tr>
-			</table>
-			
-        <main>
-            <slot />
-        </main>
+		<h1>ELIGE DONDE APOSTAR</h1>
+		<table>
+			<tr>
+				<td class="green" rowspan="3"><a href="/jugada/0">0</a></td>
+				<td class="red"><a href="/jugada/3">3</a></td>
+				<td class="black"><a href="/jugada/6">6</a></td>
+				<td class="red"><a href="/jugada/9">9</a></td>
+				<td class="red" rowspan="3"><a href="/jugada/10">10</a></td>
+			</tr>
+			<tr>
+				<td class="black"><a href="/jugada/2">2</a></td>
+				<td class="red"><a href="/jugada/5">5</a></td>
+				<td class="black"><a href="/jugada/8">8</a></td>
+			</tr>
+			<tr>
+				<td class="black"><a href="/jugada/1">1</a></td>
+				<td class="red"><a href="/jugada/4">4</a></td>
+				<td class="black"><a href="/jugada/7">7</a></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td class="blau"><a href="/jugada/impar">Imparell</a></td>
+				<td class="black"><a href="/jugada/negro">Negre</a></td>
+				<td class="red"><a href="/jugada/rojo">Vermell</a></td>
+				<td class="blau"><a href="/jugada/par">Parell</a></td>
+			</tr>
+		</table>
+		<main>
+			<slot />
+		</main>
 	</body>
-</html>	
-	<style>
-		table {
-			border-collapse: collapse;
-			width: 50%;
-			margin: 0 auto;
-		}
-		
-		td {
-			border: 2px solid rgb(91, 91, 91);
-			text-align: center;
-			
-		}
-		.red {
-			background-color: red;
-			color: white;
-		}
-		.black {
-			background-color: black;
-			color: white;
-		}
-		.blau {
-			background-color: rgb(65, 63, 192);
-			color: white;
-		}
-		.negre{padding-right: 15px;
-		padding-left: 15px;}
-		.green {
-			background-color: green;
-			color: white;
-		}
-		td a{
-			color: white;
-			text-decoration: none;
-
-		}
-
-	</style>
+</html>
